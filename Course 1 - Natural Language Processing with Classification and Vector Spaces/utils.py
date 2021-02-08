@@ -155,3 +155,37 @@ def confidence_ellipse(x, y, ax, n_std=3.0, facecolor='none', **kwargs):
 
     ellipse.set_transform(transf + ax.transData)
     return ax.add_patch(ellipse)
+
+
+def get_dict(file_name):
+    """
+    This function returns the english to french dictionary given a file where the each column corresponds to a word.
+    Check out the files this function takes in your workspace.
+    """
+    my_file = pd.read_csv(file_name, delimiter=' ')
+    etof = {}  # the english to french dictionary to be returned
+    for i in range(len(my_file)):
+        # indexing into the rows.
+        en = my_file.loc[i][0]
+        fr = my_file.loc[i][1]
+        etof[en] = fr
+
+    return etof
+
+
+def cosine_similarity(A, B):
+    '''
+    Input:
+        A: a numpy array which corresponds to a word vector
+        B: A numpy array which corresponds to a word vector
+    Output:
+        cos: numerical number representing the cosine similarity between A and B.
+    '''
+    # you have to set this variable to the true label.
+    cos = -10
+    dot = np.dot(A, B)
+    norma = np.linalg.norm(A)
+    normb = np.linalg.norm(B)
+    cos = dot / (norma * normb)
+
+    return cos
